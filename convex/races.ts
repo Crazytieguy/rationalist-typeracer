@@ -6,11 +6,10 @@ import { mutation, query } from "./_generated/server";
 export const createRace = mutation({
   args: {},
   handler: async (ctx) => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const user = (await ctx.runMutation(
+    const user: Doc<"users"> = await ctx.runMutation(
       internal.users.getOrCreateAuthedUser,
       {},
-    )) as Doc<"users">;
+    );
 
     const raceId = await ctx.db.insert("races", {
       status: "waiting",
@@ -28,11 +27,10 @@ export const createRace = mutation({
 export const joinRace = mutation({
   args: { raceId: v.id("races") },
   handler: async (ctx, args) => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const user = (await ctx.runMutation(
+    const user = await ctx.runMutation(
       internal.users.getOrCreateAuthedUser,
       {},
-    )) as Doc<"users">;
+    );
 
     const race = await ctx.db.get(args.raceId);
     if (!race) throw new Error("Race not found");
@@ -141,11 +139,10 @@ export const getRace = query({
 export const leaveRace = mutation({
   args: { raceId: v.id("races") },
   handler: async (ctx, args) => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const user = (await ctx.runMutation(
+    const user = await ctx.runMutation(
       internal.users.getOrCreateAuthedUser,
       {},
-    )) as Doc<"users">;
+    );
 
     const race = await ctx.db.get(args.raceId);
     if (!race) throw new Error("Race not found");
@@ -175,11 +172,10 @@ export const leaveRace = mutation({
 export const startRace = mutation({
   args: { raceId: v.id("races") },
   handler: async (ctx, args) => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const user = (await ctx.runMutation(
+    const user = await ctx.runMutation(
       internal.users.getOrCreateAuthedUser,
       {},
-    )) as Doc<"users">;
+    );
 
     const race = await ctx.db.get(args.raceId);
     if (!race) throw new Error("Race not found");
@@ -236,11 +232,10 @@ export const updateProgress = mutation({
     isFinished: v.boolean(),
   },
   handler: async (ctx, args) => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const user = (await ctx.runMutation(
+    const user = await ctx.runMutation(
       internal.users.getOrCreateAuthedUser,
       {},
-    )) as Doc<"users">;
+    );
 
     const race = await ctx.db.get(args.raceId);
     if (!race) throw new Error("Race not found");
