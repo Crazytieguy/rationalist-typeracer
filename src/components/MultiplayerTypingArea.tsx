@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from "react";
 import { useMutation } from "convex/react";
+import { useEffect, useRef, useState } from "react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
 
@@ -22,14 +22,26 @@ interface MultiplayerTypingAreaProps {
   onProgressUpdate?: (progress: number, wpm: number) => void;
 }
 
-export function MultiplayerTypingArea({ raceId, raceStatus, startTime, existingProgress, onProgressUpdate }: MultiplayerTypingAreaProps) {
+export function MultiplayerTypingArea({
+  raceId,
+  raceStatus,
+  startTime,
+  existingProgress,
+  onProgressUpdate,
+}: MultiplayerTypingAreaProps) {
   // Restore state from existing progress
-  const initialCompletedChars = existingProgress ? Math.floor((existingProgress.progress / 100) * LOREM_TEXT.length) : 0;
-  const [userInput, setUserInput] = useState(LOREM_TEXT.substring(0, initialCompletedChars));
+  const initialCompletedChars = existingProgress
+    ? Math.floor((existingProgress.progress / 100) * LOREM_TEXT.length)
+    : 0;
+  const [userInput, setUserInput] = useState(
+    LOREM_TEXT.substring(0, initialCompletedChars),
+  );
   const [completedChars, setCompletedChars] = useState(initialCompletedChars);
   const [errors, setErrors] = useState<Set<number>>(new Set());
   const [wpm, setWpm] = useState(existingProgress?.wpm || 0);
-  const [isFinished, setIsFinished] = useState(existingProgress?.isFinished || false);
+  const [isFinished, setIsFinished] = useState(
+    existingProgress?.isFinished || false,
+  );
   const [elapsedTime, setElapsedTime] = useState(0);
   const [countdownTime, setCountdownTime] = useState(3);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -66,7 +78,7 @@ export function MultiplayerTypingArea({ raceId, raceStatus, startTime, existingP
     const interval = setInterval(() => {
       const elapsed = (Date.now() - startTime) / 1000; // seconds
       setElapsedTime(elapsed);
-      
+
       if (completedChars > 0) {
         const minutes = elapsed / 60;
         const words = completedChars / 5; // Standard: 5 chars = 1 word
@@ -94,13 +106,21 @@ export function MultiplayerTypingArea({ raceId, raceStatus, startTime, existingP
     });
 
     onProgressUpdate?.(progress, wpm);
-  }, [completedChars, wpm, isFinished, raceStatus, raceId, updateProgress, onProgressUpdate]);
+  }, [
+    completedChars,
+    wpm,
+    isFinished,
+    raceStatus,
+    raceId,
+    updateProgress,
+    onProgressUpdate,
+  ]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (raceStatus !== "racing" || isFinished) return;
 
     const newInput = e.target.value;
-    
+
     // Don't allow typing if there are errors that need fixing
     if (errors.size > 0 && newInput.length > userInput.length) {
       return;
@@ -109,19 +129,19 @@ export function MultiplayerTypingArea({ raceId, raceStatus, startTime, existingP
     // Handle backspace
     if (newInput.length < userInput.length) {
       const deletedPosition = userInput.length - 1;
-      
+
       // Remove error if we're deleting an error character
       if (errors.has(deletedPosition)) {
         const newErrors = new Set(errors);
         newErrors.delete(deletedPosition);
         setErrors(newErrors);
       }
-      
+
       // Update completed chars if we're backspacing into completed section
       if (deletedPosition < completedChars) {
         setCompletedChars(deletedPosition);
       }
-      
+
       setUserInput(newInput);
       return;
     }
@@ -136,7 +156,7 @@ export function MultiplayerTypingArea({ raceId, raceStatus, startTime, existingP
       if (position === completedChars) {
         setCompletedChars(position + 1);
       }
-      
+
       // Check if finished
       if (position === LOREM_TEXT.length - 1) {
         setIsFinished(true);
@@ -152,17 +172,21 @@ export function MultiplayerTypingArea({ raceId, raceStatus, startTime, existingP
   };
 
   const renderText = () => {
-    return LOREM_TEXT.split('').map((char, index) => {
+    return LOREM_TEXT.split("").map((char, index) => {
       let className = "";
-      
+
       if (index < completedChars && !errors.has(index)) {
         className = "text-success";
       } else if (errors.has(index)) {
         className = "bg-error text-error-content";
-      } else if (index === userInput.length && raceStatus === "racing" && !isFinished) {
+      } else if (
+        index === userInput.length &&
+        raceStatus === "racing" &&
+        !isFinished
+      ) {
         className = "bg-primary text-primary-content animate-pulse";
       }
-      
+
       return (
         <span key={index} className={className}>
           {char}
@@ -187,7 +211,7 @@ export function MultiplayerTypingArea({ raceId, raceStatus, startTime, existingP
           </div>
         </div>
       )}
-      
+
       {/* Status Display */}
       <div className="flex justify-between items-center">
         <div className="flex gap-4">
@@ -206,16 +230,20 @@ export function MultiplayerTypingArea({ raceId, raceStatus, startTime, existingP
       </div>
 
       {/* Progress Bar */}
-      <progress className="progress progress-primary w-full" value={progress} max="100"></progress>
-      
+      <progress
+        className="progress progress-primary w-full"
+        value={progress}
+        max="100"
+      ></progress>
+
       {/* Text Display */}
-      <div 
+      <div
         className="text-2xl leading-relaxed font-mono p-6 bg-base-200 rounded-lg cursor-text select-none"
         onClick={() => inputRef.current?.focus()}
       >
         {renderText()}
       </div>
-      
+
       {/* Hidden Input */}
       <textarea
         ref={inputRef}
@@ -226,7 +254,7 @@ export function MultiplayerTypingArea({ raceId, raceStatus, startTime, existingP
         disabled={raceStatus !== "racing" || isFinished}
         autoFocus
       />
-      
+
       {/* Instructions */}
       {raceStatus === "waiting" && (
         <p className="text-center text-base-content/60">

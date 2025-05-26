@@ -9,13 +9,13 @@ export const getOrCreateAuthedUser = internalMutation({
     }
 
     // Check if user already exists
-    const user = await ctx.db
+    let user = await ctx.db
       .query("users")
       .withIndex("by_clerkId", (q) => q.eq("clerkId", identity.subject))
       .unique();
 
     if (user !== null) {
-      return user._id;
+      return user;
     }
 
     // If not, create a new user
@@ -24,7 +24,10 @@ export const getOrCreateAuthedUser = internalMutation({
       name: identity.name ?? "Anonymous",
     });
 
-    return userId;
+    user = await ctx.db.get(userId);
+    if (!user) throw new Error("Failed to create user");
+    
+    return user;
   },
 });
 
