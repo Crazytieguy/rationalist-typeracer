@@ -32,13 +32,15 @@ This is a TypeScript full-stack application using:
 **Convex Functions**: Located in `convex/` directory
 
 - Schema definitions in `convex/schema.ts`
-- Queries, mutations, and actions in separate files (e.g., `messages.ts`, `users.ts`)
+- `users.ts` - User management functions
+- `races.ts` - Race room creation/joining, race state management
 - Authentication config in `convex/auth.config.ts`
 
 **Frontend Routing**: File-based routing in `src/routes/`
 
 - `__root.tsx` - Root layout with authentication states and navigation
-- Route files define pages (e.g., `index.tsx` for `/`)
+- `index.tsx` - Home page with race room creation/joining
+- `race.tsx` - Main typing race interface
 - Uses TanStack Router with type-safe navigation
 
 **Authentication Flow**:
@@ -57,7 +59,8 @@ This is a TypeScript full-stack application using:
 ### Database Schema
 
 - `users` table: `clerkId` (string), `name` (string) with index on `clerkId`
-- Additional tables defined as needed for your application
+- `races` table: race status, participants, start time
+- `raceProgress` table: real-time progress tracking per user per race
 
 ### Environment Variables
 

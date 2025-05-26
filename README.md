@@ -1,10 +1,8 @@
-# Full-Stack Web Application Starter Template
+# Rationalist Typeracer
 
-This starter template accelerates full-stack web app development, emphasizing an excellent Developer Experience (DX), especially for LLM-assisted coding. It integrates Convex, TanStack Router, Clerk, Vite, React, and Tailwind CSS to provide a robust foundation.
+A real-time multiplayer typing game built with modern web technologies. Race against other players with lorem ipsum text, see live progress, and compete for the best WPM!
 
-## Quick Start for Humans
-
-Follow these steps to get your development environment set up:
+## Quick Start
 
 1.  **Install pnpm:**
 
@@ -12,54 +10,32 @@ Follow these steps to get your development environment set up:
     curl -fsSL https://get.pnpm.io/install.sh | sh -
     ```
 
-    _Restart your terminal after installation for `pnpm` to be available._
-
-2.  **Install Node.js (if needed):**
-
-    ```bash
-    pnpm env use --global lts
-    ```
-
-3.  **Use this template:**
-
-    Click "Use this template" on GitHub to create your own repository, then clone it.
-
-4.  **Install Claude Code:**
-
-    Claude Code is highly recommended for this template.
-
-    ```bash
-    pnpm install -g @anthropic-ai/claude-code
-    ```
-
-    Further Instructions: [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
-
-5.  **Initialize the project:**
+2.  **Install dependencies:**
 
     ```bash
     pnpm run init
     ```
 
-    This will:
-
-    - Install all dependencies
-    - Initialize Convex
-
-6.  **Run the app:**
+3.  **Run the app:**
 
     ```bash
     pnpm dev
     ```
 
-7.  **Clerk Configuration:**
+## Features
 
-    The app comes preconfigured with a demo Clerk instance for development.
+- **Real-time multiplayer racing** - Race against other players in real-time
+- **Live progress tracking** - See everyone's progress as they type
+- **WPM calculation** - Track words per minute with live updates
+- **Race rooms** - Join or create racing rooms
+- **Authentication** - Secure user accounts with Clerk
 
-    For using your own Clerk account:
+## Tech Stack
 
-    - Follow steps 1 to 3 in the [Clerk onboarding guide](https://docs.convex.dev/auth/clerk#get-started)
-    - Paste the Issuer URL as `CLERK_JWT_ISSUER_DOMAIN` to your dev deployment environment variable settings on the Convex dashboard (see [docs](https://docs.convex.dev/auth/clerk#configuring-dev-and-prod-instances))
-    - Paste your publishable key as `VITE_CLERK_PUBLISHABLE_KEY="<your publishable key>"` to the `.env.local` file in this directory.
+- **Frontend**: React + Vite + TanStack Router
+- **Backend**: Convex (real-time database + serverless functions)
+- **Authentication**: Clerk
+- **Styling**: Tailwind CSS + DaisyUI
 
 ## Deployment
 
