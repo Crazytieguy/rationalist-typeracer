@@ -13,4 +13,24 @@ export default defineSchema({
     userId: v.id("users"),
     body: v.string(),
   }).index("by_userId", ["userId"]),
+
+  races: defineTable({
+    status: v.union(v.literal("waiting"), v.literal("countdown"), v.literal("racing"), v.literal("finished")),
+    participants: v.array(v.object({
+      userId: v.id("users"),
+      name: v.string(),
+    })),
+    startTime: v.optional(v.number()),
+  }).index("by_status", ["status"]),
+
+  raceProgress: defineTable({
+    raceId: v.id("races"),
+    userId: v.id("users"),
+    progress: v.number(), // 0-100 percentage
+    wpm: v.number(),
+    accuracy: v.number(),
+    isFinished: v.boolean(),
+  })
+    .index("by_race", ["raceId"])
+    .index("by_race_and_user", ["raceId", "userId"]),
 });

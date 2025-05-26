@@ -9,28 +9,24 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   return (
     <div className="flex flex-col gap-8 w-full py-8">
-      <h1 className="text-4xl font-bold text-center">Fullstack Vibe Coding</h1>
+      <h1 className="text-4xl font-bold text-center">Rationalist Typeracer</h1>
 
       <div className="prose lg:prose-xl mx-auto max-w-full">
         <p className="lead">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-          euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, quis
-          aliquam nisl nunc eu nisl.
+          Race against other players in real-time typing competitions! 
+          Test your speed and accuracy in multiplayer typing races.
         </p>
 
         <p>
-          Pellentesque habitant morbi tristique senectus et netus et malesuada
-          fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae,
-          ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam
-          egestas semper. Aenean ultricies mi vitae est. Mauris placerat
-          eleifend leo.
+          Challenge yourself and others to see who can type the fastest with 
+          the highest accuracy. Practice makes perfect - improve your typing 
+          skills while having fun competing with friends.
         </p>
 
         <p>
-          Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat
-          wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean
-          fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci,
-          sagittis tempus lacus enim ac dui.
+          Join a race, type the displayed text as quickly and accurately as 
+          possible, and see how you rank against other players. Track your 
+          words per minute (WPM) and accuracy in real-time.
         </p>
 
         <Unauthenticated>
@@ -42,8 +38,11 @@ function HomePage() {
         </Unauthenticated>
 
         <Authenticated>
-          <div className="flex justify-center mt-8">
-            <Link to="/chat" className="btn btn-primary btn-lg">
+          <div className="flex justify-center gap-4 mt-8">
+            <Link to="/race" className="btn btn-primary btn-lg">
+              Start Race
+            </Link>
+            <Link to="/chat" className="btn btn-secondary btn-lg">
               Go to Chat
             </Link>
           </div>
