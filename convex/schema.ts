@@ -9,11 +9,6 @@ export default defineSchema({
     name: v.string(),
   }).index("by_clerkId", ["clerkId"]),
 
-  messages: defineTable({
-    userId: v.id("users"),
-    body: v.string(),
-  }).index("by_userId", ["userId"]),
-
   races: defineTable({
     status: v.union(v.literal("waiting"), v.literal("countdown"), v.literal("racing"), v.literal("finished")),
     participants: v.array(v.object({

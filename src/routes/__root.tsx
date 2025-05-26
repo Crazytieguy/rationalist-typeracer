@@ -84,14 +84,14 @@ function RootComponent() {
                         Home
                       </Link>
                       <Link
-                        to="/chat"
+                        to="/race"
                         className="btn btn-ghost"
                         activeProps={{
                           className: "btn btn-ghost btn-active",
                         }}
                         onClick={() => setIsSidebarOpen(false)}
                       >
-                        Chat
+                        Typeracer
                       </Link>
                     </nav>
                   </div>
@@ -136,14 +136,14 @@ function RootComponent() {
                       </li>
                       <li>
                         <Link
-                          to="/chat"
+                          to="/race"
                           onClick={() => setIsSidebarOpen(false)}
                           activeProps={{
                             className: "active",
                           }}
                           className="flex items-center p-2"
                         >
-                          Chat
+                          Typeracer
                         </Link>
                       </li>
                     </ul>

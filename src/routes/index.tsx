@@ -42,9 +42,6 @@ function HomePage() {
             <Link to="/race" className="btn btn-primary btn-lg">
               Start Race
             </Link>
-            <Link to="/chat" className="btn btn-secondary btn-lg">
-              Go to Chat
-            </Link>
           </div>
         </Authenticated>
       </div>
